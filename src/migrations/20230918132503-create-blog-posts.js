@@ -2,43 +2,40 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
+
     await queryInterface.createTable('blog_posts', {
       id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
         type: Sequelize.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
       },
       title: {
-        allowNull: false,
         type: Sequelize.STRING,
+        allowNull: false,
       },
       content: {
+        type: Sequelize.TEXT,
         allowNull: false,
-        type: Sequelize.STRING,
       },
-      userId: {
-        allowNull: false,
+      user_id: {
         type: Sequelize.INTEGER,
-        field: 'user_id',
+        allowNull: false,
         references: {
           model: 'users',
           key: 'id',
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
       },
       published: {
-        allowNull: false,
         type: Sequelize.DATE,
+        allowNull: false,
       },
       updated: {
-        allowNull: false,
         type: Sequelize.DATE,
+        allowNull: false,
       },
     });
   },
-
 
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('blog_posts');
